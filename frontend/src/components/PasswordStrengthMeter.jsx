@@ -10,19 +10,24 @@ const PasswordCriteria = ({ password }) => {
 	];
 
 	return (
-		<div className='mt-2 space-y-1'>
+		<div className='space-y-3 mt-4'>
 			{criteria.map((item) => (
-				<div key={item.label} className='flex items-center text-xs'>
-					{item.met ? (
-						<Check className='size-4 text-green-500 mr-2' />
-					) : (
-						<X className='size-4 text-gray-500 mr-2' />
-					)}
-					<span className={item.met ? "text-green-500" : "text-gray-400"}>{item.label}</span>
+				<div key={item.label} className='flex items-center text-sm'>
+					<span
+						className={`inline-block w-4 h-4 mr-3 rounded-full ${
+							item.met ? 'bg-emerald-500' : 'bg-gray-400'
+						}`}
+					></span>
+					<span className={item.met ? 'text-black font-semibold' : 'text-gray-500'}>
+						{item.label}
+					</span>
 				</div>
 			))}
 		</div>
 	);
+	
+	
+
 };
 
 const PasswordStrengthMeter = ({ password }) => {
@@ -53,24 +58,27 @@ const PasswordStrengthMeter = ({ password }) => {
 	};
 
 	return (
-		<div className='mt-2'>
-			<div className='flex justify-between items-center mb-1'>
-				<span className='text-xs text-gray-400'>Password strength</span>
-				<span className='text-xs text-gray-400'>{getStrengthText(strength)}</span>
+		<div className='mt-4'>
+			<div className='flex justify-between items-center mb-2'>
+				<span className='text-sm text-gray-500'>Password strength</span>
+				<span className='text-sm font-medium text-gray-500'>{getStrengthText(strength)}</span>
 			</div>
-
+	
 			<div className='flex space-x-1'>
 				{[...Array(4)].map((_, index) => (
 					<div
 						key={index}
-						className={`h-1 w-1/4 rounded-full transition-colors duration-300 
-                ${index < strength ? getColor(strength) : "bg-gray-600"}
-              `}
-					/>
+						className={`h-2 flex-1 rounded-full transition-colors duration-300 ${
+							index < strength ? getColor(strength) : 'bg-gray-300'
+						}`}
+					></div>
 				))}
 			</div>
+	
+			{/* Criteria Section */}
 			<PasswordCriteria password={password} />
 		</div>
 	);
+	
 };
 export default PasswordStrengthMeter;
